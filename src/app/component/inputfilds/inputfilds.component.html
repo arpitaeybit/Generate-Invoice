@@ -1,0 +1,14 @@
+<div class="m-5">
+    <form [formGroup]="inputdata">
+
+        <div formArrayName="email" *ngFor="let item of emailFormArray.controls;let i= index" class="text-center">
+            <ng-container [formGroupName]="i">
+                <input type="text" formControlName="email" class="w-50 my-2 p-2 rounded border-1"
+                    placeholder="Enter Email">
+            </ng-container>
+        </div>
+        <button (click)="addinput()"
+            class="d-block mx-auto w-50 p-2 rounded border-1 bg-success text-light border-0">Add</button>
+    </form>
+</div>
+

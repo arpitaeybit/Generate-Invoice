@@ -1,0 +1,13 @@
+<div *ngIf="show" class="p-5"
+    style="box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;">
+    <div class="row">
+        <div class="col-6">
+            <img [src]="product.image" alt="" width="300px">
+        </div>
+        <div class="col-6">
+            <p><span class="fw-semibold me-2">title :-</span>{{product.title}}</p>
+            <p><span class="fw-semibold me-2">price :-</span>{{product.price}}</p>
+            <p><span class="fw-semibold me-2">description :-</span>{{product.description}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,168 @@
+{
+  "product": [
+    {
+      "name": "iPhone 14",
+      "category": "Electronics",
+      "price": 79999,
+      "stock": 12
+    },
+    {
+      "name": "Samsung Galaxy S22",
+      "category": "Electronics",
+      "price": 69999,
+      "stock": 20
+    },
+    {
+      "name": "Nike Air Max",
+      "category": "Fashion",
+      "price": 5999,
+      "stock": 30
+    },
+    {
+      "name": "Adidas T-Shirt",
+      "category": "Fashion",
+      "price": 1299,
+      "stock": 50
+    },
+    {
+      "name": "Prestige Mixer",
+      "category": "Home & Kitchen",
+      "price": 3499,
+      "stock": 15
+    },
+    {
+      "name": "The Alchemist",
+      "category": "Books",
+      "price": 399,
+      "stock": 100
+    },
+    {
+      "name": "Lego Classic Set",
+      "category": "Toys",
+      "price": 1499,
+      "stock": 25
+    },
+    {
+      "name": "Hot Wheels Car",
+      "category": "Toys",
+      "price": 299,
+      "stock": 80
+    },
+    {
+      "name": "Dove Shampoo",
+      "category": "Beauty",
+      "price": 250,
+      "stock": 45
+    },
+    {
+      "name": "Football",
+      "category": "Sports",
+      "price": 999,
+      "stock": 10
+    }
+  ],
+  "customer": [
+    {
+      "id": "ae1b",
+      "name": "user1",
+      "order": [
+        {
+          "Date": "0121-02-12",
+          "totalprice": 80798.99,
+          "invoiceno": "AR5477",
+          "order": [
+            {
+              "name": "iPhone 14",
+              "quntity": 1,
+              "price": 79999,
+              "tax": 1,
+              "totalprice": 80798.99
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fba2",
+      "name": "user",
+      "order": [
+        {
+          "Date": "1111-11-11",
+          "totalprice": 78398.88,
+          "invoiceno": "AR1371",
+          "order": [
+            {
+              "name": "Samsung Galaxy S22",
+              "quntity": 1,
+              "price": 69999,
+              "tax": 12,
+              "totalprice": 78398.88
+            }
+          ]
+        },
+        {
+          "Date": "2002-02-02",
+          "totalprice": 91131.70000000001,
+          "invoiceno": "AR3363",
+          "order": [
+            {
+              "name": "iPhone 14",
+              "quntity": 1,
+              "price": 79999,
+              "tax": 12,
+              "totalprice": 89598.88
+            },
+            {
+              "name": "Adidas T-Shirt",
+              "quntity": 1,
+              "price": 1299,
+              "tax": 18,
+              "totalprice": 1532.82
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user3",
+      "order": [
+        {
+          "Date": "1111-11-11",
+          "totalprice": 446.88,
+          "invoiceno": "AR6060",
+          "order": [
+            {
+              "name": "The Alchemist",
+              "quntity": 1,
+              "price": 399,
+              "tax": 12,
+              "totalprice": 446.88
+            }
+          ]
+        },
+        {
+          "Date": "2020-02-02",
+          "totalprice": 807.7,
+          "invoiceno": "AR4986",
+          "order": [
+            {
+              "name": "The Alchemist",
+              "quntity": 1,
+              "price": 399,
+              "tax": 20,
+              "totalprice": 478.8
+            },
+            {
+              "name": "Hot Wheels Car",
+              "quntity": 1,
+              "price": 299,
+              "tax": 10,
+              "totalprice": 328.9
+            }
+          ]
+        }
+      ],
+      "id": "00a7"
+    }
+  ]
+}

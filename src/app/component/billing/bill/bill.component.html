@@ -1,0 +1,103 @@
+<div class="container">
+    <form [formGroup]="customerdetails">
+        <div class="d-flex align-items-top">
+            <div class="col-6 p-3">
+                <label class="w-100 fw-semibold mb-1">Customer Name</label>
+                <select formControlName="customer" class="w-100 bg-light text-dark rounded border-1 p-2">
+                    <option value="" disabled>select customer</option>
+                    <option *ngFor="let customer of customerlist" [value]="customer.id">{{ customer.name }}
+                    </option>
+                </select>
+                <p *ngIf="customerdetails.get('customer')?.touched && customerdetails.get('customer')?.invalid"
+                    class="text-danger">plase
+                    select customer</p>
+            </div>
+            <div class="col-6 p-3">
+                <label class="w-100 fw-semibold mb-1">Date</label>
+                <input type="date" class="w-100 bg-light text-dark rounded border-1 p-2" formControlName="date">
+                <p *ngIf="customerdetails.get('date')?.touched && customerdetails.get('date')?.invalid"
+                    class="text-danger">plase
+                    select Date</p>
+            </div>
+        </div>
+    </form>
+    <form [formGroup]="form" class="p-3">
+        <div formArrayName="products" class="my-5">
+            <table class="w-100">
+                <thead>
+                    <tr>
+                        <th class="fw-semibold text-center text-capitalize">Product Name</th>
+                        <th class="fw-semibold text-center text-capitalize">quntity</th>
+                        <th class="fw-semibold text-center text-capitalize">price</th>
+                        <th class="fw-semibold text-center text-capitalize">tax</th>
+                        <th class="fw-semibold text-center text-capitalize">totalprice</th>
+                        <th class="fw-semibold text-center text-capitalize">remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let group of productsFormArray.controls; let i = index let isLast = last"
+                        [formGroupName]="
+                        i" class="mb-3 align-top">
+                        <td class="p-2">
+                            <select formControlName="name" class="w-100 p-2 bg-light text-dark rounded border-1"
+                                (change)="findproductprice($event,i)">
+                                <option value="" disabled>select product</option>
+                                <option *ngFor="let products of productArr" [value]="products.name">{{ products.name }}
+                                </option>
+                            </select>
+                            <div>
+                                <p *ngIf="group.get('name')?.touched && group.get('name')?.invalid" class="text-danger">
+                                    Plase
+                                    select Product</p>
+                            </div>
+                        </td>
+                        <td class="p-2">
+                            <input type="number" class="w-100 p-2 bg-light text-dark rounded border-1"
+                                formControlName="quntity" placeholder="quntity" />
+                        </td>
+                        <td class="p-2">
+                            <input type="number" class="w-100 p-2 bg-light text-dark rounded border-1"
+                                formControlName="price" placeholder="Price" readonly />
+                        </td>
+                        <td class="p-2">
+                            <input type="number" class="w-100 p-2 bg-light text-dark rounded border-1"
+                                formControlName="tax" placeholder="tax" (input)="findtotal($event,i)" />
+                            <div>
+                                <p *ngIf="group.get('tax')?.touched && group.get('tax')?.invalid" class="text-danger">
+                                    Plase Enter
+                                    Tax</p>
+                            </div>
+                        </td>
+                        <td class="p-2">
+                            <input type="number" class="w-100 p-2 bg-light text-dark rounded border-1"
+                                formControlName="totalprice" placeholder="totalprice" readonly />
+                        </td>
+                        <td class="p-2">
+                            <button type="button" class="btn btn-secondary" (click)="removeProduct(i)"
+                                *ngIf="!isLast || i">Remove</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary m-2" (click)="addProduct()"
+                                *ngIf="isLast">Add
+                                More</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-end px-2">Price</td>
+                        <td class="fw-semibold px-2">{{totalprice || '0.00'}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-end px-2">Tax</td>
+                        <td class="fw-semibold px-2">{{totaltax || '0.00'}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-end px-2">TOTAl PRICE</td>
+                        <td class="fw-bold px-2">{{totalbill || '0.00'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button type="button" class="btn btn-secondary m-2 w-100" (click)="submit()">Submit</button>
+    </form>
+</div>

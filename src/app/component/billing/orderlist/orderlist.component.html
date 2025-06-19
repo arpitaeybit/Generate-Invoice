@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-between py-4">
+    <h2>Order</h2>
+    <a href="/" class="btn btn-secondary">ADD INVOCE</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Total Price</th>
+            <th>Invoce No</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let userOrder of orederdata; let j = index">
+            <ng-container *ngFor="let item of userOrder.order; let k = index">
+                <tr>
+                    <td>{{ userOrder.name }}</td>
+                    <td>{{ item.Date }}</td>
+                    <td>{{ item.totalprice.toFixed(2) }}</td>
+                    <td>{{ item.invoiceno }}</td>
+                </tr>
+            </ng-container>
+        </ng-container>
+    </tbody>
+</table>
