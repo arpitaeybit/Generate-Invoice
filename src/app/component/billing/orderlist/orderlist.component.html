@@ -9,6 +9,7 @@
             <th>Date</th>
             <th>Total Price</th>
             <th>Invoce No</th>
+            <th>Update</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,8 @@
                     <td>{{ item.Date }}</td>
                     <td>{{ item.totalprice.toFixed(2) }}</td>
                     <td>{{ item.invoiceno }}</td>
+                    <td><a [href]="'?id=' + userOrder.id + '&index=' + k">Update</a>
+                    </td>
                 </tr>
             </ng-container>
         </ng-container>

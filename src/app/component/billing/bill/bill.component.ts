@@ -24,7 +24,7 @@ import { SelectModule } from 'primeng/select'; // If you use `p-select`
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { BrowserModule } from '@angular/platform-browser';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router, Routes } from '@angular/router';
 @Component({
   selector: 'app-bill',
   imports: [
@@ -55,21 +55,34 @@ import { Route, Router } from '@angular/router';
 export class BillComponent {
   form: FormGroup;
   productArr: any
+  invoceno: any
   totalprice: any
   totaltax: any
   totalbill: any
   customerlist: any
+  updateid: any
+  upadteindex: any
   customerdetails = new FormGroup({
     customer: new FormControl(null, Validators.required),
     date: new FormControl(null, Validators.required)
   })
-  constructor(private billservices: BillService, private fb: FormBuilder, private route: Router) {
+  constructor(private billservices: BillService, private fb: FormBuilder, private router: Router, private activeroute: ActivatedRoute) {
+    this.invoceno = "AR" + Math.floor(1000 + Math.random() * 9000);
+    this.activeroute.queryParams.subscribe((data: any) => {
+      this.updateid = data.id
+      this.upadteindex = data.index
+    })
     this.getdata()
     this.form = this.fb.group({
       products: this.fb.array([])
     });
-    this.addProduct();
+    if (this.updateid, this.upadteindex) {
+      this.updateinvoice()
+    } else {
+      this.addProduct();
+    }
   }
+
   getdata() {
     this.billservices.getproduct().subscribe((data: any) => {
       this.productArr = data
@@ -78,6 +91,7 @@ export class BillComponent {
       this.customerlist = data
     })
   }
+
   get productsFormArray(): FormArray {
     return this.form.get('products') as FormArray;
   }
@@ -117,28 +131,56 @@ export class BillComponent {
 
   removeProduct(index: number) {
     this.productsFormArray.removeAt(index);
+    this.getbilltotal()
   }
 
   submit() {
+    this.submitandassign()
+  }
+
+  updateinvoice() {
+    let customer = (this.customerlist.filter((item: any) => item.id == this.updateid))[0]
+    this.customerdetails.patchValue({
+      customer: customer.id,
+      date: customer.order[this.upadteindex].Date
+    })
+    customer.order[this.upadteindex].order.forEach((item: any) => {
+      this.productsFormArray.push(this.fb.group({
+        name: [item.name, Validators.required],
+        quntity: [item.quntity, Validators.required],
+        price: [item.price, Validators.required],
+        tax: [item.tax, Validators.required],
+        totalprice: [item.totalprice, Validators.required]
+      }))
+    })
+    this.getbilltotal()
+  }
+
+  edited() {
+    this.submitandassign()
+  }
+
+  submitandassign() {
     this.form.markAllAsTouched();
     this.customerdetails.markAllAsTouched();
-    const InvoceNo = "AR" + Math.floor(1000 + Math.random() * 9000);
     if (this.customerdetails.valid && this.form.valid) {
       let customer = this.customerdetails.value
       let order = this.form.value.products
-      console.log(this.totalbill);
       let data = (this.customerlist.filter((item: any) => item.id == customer.customer))[0]
       let finaloreder = {
         "Date": customer.date,
         "totalprice": this.totalbill,
-        "invoiceno": InvoceNo,
+        "invoiceno": this.invoceno,
         "order": order
       }
-      data.order.push(finaloreder)
-      this.billservices.addbill(data).subscribe((data: any) => {
-        console.log('added', data);
-      })
-      this.route.navigateByUrl('/orderlist')
+      if (this.updateid) {
+        finaloreder.invoiceno = data.order[this.upadteindex].invoiceno
+        data.order[this.upadteindex] = finaloreder
+      } else {
+        data.order.push(finaloreder)
+      }
+      this.billservices.addbill(data).subscribe((data: any) => { })
+      this.router.navigateByUrl('/orderlist')
       this.form.reset()
       this.customerdetails.reset()
     }
